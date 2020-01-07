@@ -61,7 +61,7 @@ void spinMatrix(int **matrix, int size, int spins)
     // calculate spins
     spins = ((spins >= 0) ? (spins % 4) : ((4 - (abs(spins) % 4)) % 4));
 
-    // transpose
+    // spin the matrix
     switch (spins)
     {
         case 0:
