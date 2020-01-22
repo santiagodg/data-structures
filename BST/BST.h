@@ -132,6 +132,9 @@ void BST::remove(int data) {
       delete curr;
       break;
     case 2:
+      int x = succ(curr);
+      remove(x);
+      curr->setData(x);
       break;
   }
 }
