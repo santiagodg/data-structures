@@ -8,6 +8,7 @@ using namespace std;
 class BST {
   public:
     BST();
+    BST(const BST &oldBST);
     ~BST();
 
     bool search(int data);
@@ -43,6 +44,22 @@ class BST {
 
 BST::BST() {
   root = NULL;
+}
+
+BST::BST(const BST &oldBST) {
+  root = NULL;
+  // Preorder traversal of passed BST pushing traversed NodeT*s into a
+  // queue and add()ing queue data in order into this BST.
+  queue<NodeT*> qiu;
+  qiu.push(oldBST.root);
+  while (!qiu.empty()) {
+    if (qiu.front() != NULL) {
+      add(qiu.front()->getData());
+      qiu.push(qiu.front()->getLeft());
+      qiu.push(qiu.front()->getRight());
+    }
+    qiu.pop();
+  }
 }
 
 BST::~BST() {
