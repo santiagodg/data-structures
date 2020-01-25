@@ -1,3 +1,7 @@
+#include <queue>
+#include <iostream>
+using namespace std;
+
 #include "BST.h"
 
 /*
@@ -71,6 +75,63 @@ int main() {
 
   cout << "print(5) (nivelXnivel): ";
   arbol.print(5);
+  cout << endl;
+
+  /*
+  cout << "maxWidth: " << arbol.maxWidth() << endl;
+  arbol.remove(2);
+  arbol.remove(3);
+  arbol.remove(25);
+  cout << "maxWidth: " << arbol.maxWidth() << endl;
+  arbol.remove(8);
+  cout << "maxWidth: " << arbol.maxWidth() << endl;
+  */
+
+  cout << "nearstRelative(5, 20): " << arbol.nearstRelative(5, 20) << endl;
+  cout << "nearstRelative(8, 2): " << arbol.nearstRelative(8, 2) << endl;
+  cout << "nearstRelative(18, 19): " << arbol.nearstRelative(18, 19) << endl;
+  cout << "nearstRelative(10, 20): " << arbol.nearstRelative(10, 20) << endl;
+  cout << "nearstRelative(3, 25): " << arbol.nearstRelative(3, 25) << endl;
+  cout << "nearstRelative(25, 18): " << arbol.nearstRelative(25, 18) << endl;
+  cout << endl;
+
+  BST arbol2(arbol);
+  cout << "arbol1.preOrder(): ";
+  arbol.print(1);
+  cout << "arbol2.preOrder(): ";
+  arbol2.print(1);
+  cout << "arbol1.inOrder(): ";
+  arbol.print(2);
+  cout << "arbol2.inOrder(): ";
+  arbol2.print(2);
+  cout << "arbol1.postOrder(): ";
+  arbol.print(3);
+  cout << "arbol2.postOrder(): ";
+  arbol2.print(3);
+  cout << endl;
+
+  /*
+  cout << "arbol1 == arbol2: " << (arbol == arbol2 ? "true" : "false") << endl;
+  arbol.add(4);
+  cout << "added 4 into arbol1." << endl;
+  cout << "arbol1 == arbol2: " << (arbol == arbol2 ? "true" : "false") << endl;
+  arbol.remove(4);
+  cout << "removed 4 from arbol1." << endl;
+  cout << "arbol1 == arbol2: " << (arbol == arbol2 ? "true" : "false") << endl;
+  arbol.remove(17);
+  cout << "removed 17 from arbol1." << endl;
+  cout << "arbol1 == arbol2: " << (arbol == arbol2 ? "true" : "false") << endl;
+  */
+
+  queue<int> qiu;
+
+  qiu = arbol.toQueue();
+  cout << "toQueue: ";
+  while (!qiu.empty()) {
+    cout << qiu.front() << " ";
+    qiu.pop();
+  }
+  cout << endl;
 
   return 0;
 }
