@@ -23,6 +23,8 @@ class BST {
     int maxWidth();
     int nearstRelative(int data1, int data2); // named by teacher
 
+    bool operator==(const BST &rhs);
+
   private:
     NodeT *root;
 
@@ -40,6 +42,7 @@ class BST {
     int height(NodeT *r);
     void nivelXnivel();
     bool search(int data, NodeT *r);
+    bool isIdentical(NodeT *root1, NodeT *root2) const;
 };
 
 BST::BST() {
@@ -48,8 +51,8 @@ BST::BST() {
 
 BST::BST(const BST &oldBST) {
   root = NULL;
-  // Preorder traversal of passed BST pushing traversed NodeT*s into a
-  // queue and add()ing queue data in order into this BST.
+  // Level traversal of passed BST pushing traversed NodeT*s into a
+  // queue and add()ing queue's FIFO ordered data into this BST.
   queue<NodeT*> qiu;
   qiu.push(oldBST.root);
   while (!qiu.empty()) {
@@ -296,6 +299,11 @@ int BST::nearstRelative(int n1, int n2) {
   return -1;
 }
 
+bool BST::operator==(const BST &rhs) {
+  // call recursive helper function to check for equality
+  return isIdentical(this->root, rhs.root);
+}
+
 int BST::howManyChildren(NodeT *r) {
   int cont = 0;
   if (r->getLeft() != NULL) {
@@ -414,4 +422,20 @@ bool BST::search(int data, NodeT *r) {
     curr = curr->getData() > data ? curr->getLeft() : curr->getRight();
   }
   return false;
+}
+
+bool BST::isIdentical(NodeT *root1, NodeT *root2) const {
+  // if both trees are empty then return true
+  if (root1 == NULL && root2 == NULL) {
+    return true;
+  } else {
+    // if one root is null but the other one is not, then return false
+    if (root1 == NULL && root2 != NULL || root1 != NULL && root2 == NULL) return false;
+    // if data on both nodes are identical, return equality of left and right
+    if (root1->getData() == root2->getData()) {
+      return isIdentical(root1->getLeft(), root2->getLeft()) && isIdentical(root1->getRight(), root2->getRight());
+    } else {
+      return false;
+    }
+  }
 }
