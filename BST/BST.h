@@ -22,6 +22,7 @@ class BST {
     int whatLevelamI(int data);
     int maxWidth();
     int nearstRelative(int data1, int data2); // named by teacher
+    queue<int> toQueue();
 
     bool operator==(const BST &rhs);
 
@@ -35,6 +36,7 @@ class BST {
     void preOrder(NodeT *r);
     void inOrder(NodeT *r);
     void postOrder(NodeT *r);
+    void converseInOrder(NodeT *r, queue<int> &qiu);
 
     void libera(NodeT *r);
     void printLeaves(NodeT *r);
@@ -299,6 +301,16 @@ int BST::nearstRelative(int n1, int n2) {
   return -1;
 }
 
+queue<int> BST::toQueue() {
+  /**
+  *  Returns a queue<int> where data is in descending order.
+  */
+  queue<int> qiu;
+  // Converse inOrder traversal
+  converseInOrder(root, qiu);
+  return qiu;
+}
+
 bool BST::operator==(const BST &rhs) {
   // call recursive helper function to check for equality
   return isIdentical(this->root, rhs.root);
@@ -344,6 +356,17 @@ void BST::inOrder(NodeT *r) {
     inOrder(r->getLeft());
     cout << r->getData() << " ";
     inOrder(r->getRight());
+  }
+}
+
+void BST::converseInOrder(NodeT *r, queue<int> &qiu) {
+  /**
+  * Pushes BST data into queue in converseInOrder traversal
+  */
+  if (r != NULL) {
+    converseInOrder(r->getRight(), qiu);
+    qiu.push(r->getData());
+    converseInOrder(r->getLeft(), qiu);
   }
 }
 
