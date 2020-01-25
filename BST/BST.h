@@ -19,6 +19,8 @@ class BST {
     int height();
     void ancestors(int data);
     int whatLevelamI(int data);
+    int maxWidth();
+    int nearstRelative(int data1, int data2); // named by teacher
 
   private:
     NodeT *root;
@@ -36,6 +38,7 @@ class BST {
     int count(NodeT *r);
     int height(NodeT *r);
     void nivelXnivel();
+    bool search(int data, NodeT *r);
 };
 
 BST::BST() {
@@ -189,6 +192,93 @@ int BST::whatLevelamI(int data) {
   return -1;
 }
 
+int BST::maxWidth() {
+  NodeT *temp;
+  queue<NodeT*> qiu;
+  int max = 0, currWidth = 0, nextWidth = 0;
+  qiu.push(root);
+  currWidth++;
+  temp = root;
+  while (!qiu.empty()) {
+    currWidth++;
+    if (qiu.front() == temp) {
+      max = max > currWidth ? max : currWidth;
+      currWidth = 0;
+      temp = qiu.front()->getRight();
+    }
+    if (qiu.front()->getLeft() != NULL) {
+      qiu.push(qiu.front()->getLeft());
+    }
+    if (qiu.front()->getRight() != NULL) {
+      qiu.push(qiu.front()->getRight());
+    }
+    qiu.pop();
+  }
+  return max;
+}
+
+int BST::nearstRelative(int n1, int n2) {
+  if (n1 > n2) {
+    int temp = n1;
+    n1 = n2;
+    n2 = temp;
+  }
+  NodeT *curr = root;
+  if (curr->getData() == n1 || curr->getData() == n2) {
+    return -1;
+  }
+  while (curr != NULL) {
+    if (n1 < curr->getData() && curr->getData() < n2) {
+      // return curr->getData();
+      // verify n1 and n2 exist
+      if (search(n1, curr->getLeft()) && search(n2, curr->getRight())) {
+        return curr->getData();
+      } else {
+        return -1;
+      }
+    } else if (curr->getLeft()->getData() == n1) {
+      // return curr->getData();
+      // verify n2 exists
+      if (search(n2, curr->getLeft())) {
+        return curr->getData();
+      } else {
+        return -1;
+      }
+    } else if (curr->getLeft()->getData() == n2) {
+      // return curr->getData();
+      // verify n1 exists
+      if (search(n1, curr->getLeft())) {
+        return curr->getData();
+      } else {
+        return -1;
+      }
+    } else if (curr->getRight()->getData() == n1) {
+      // return curr->getData();
+      // verify n2 exists
+      if (search(n2, curr->getRight())) {
+        return curr->getData();
+      } else {
+        return -1;
+      }
+    } else if (curr->getRight()->getData() == n2) {
+      // return curr->getData();
+      // verify n1 exists
+      if (search(n1, curr->getRight())) {
+        return curr->getData();
+      } else {
+        return -1;
+      }
+    } else if (n1 < curr->getData() && n2 < curr->getData()) {
+      curr = curr->getLeft();
+    } else if (n1 > curr->getData() && n2 > curr->getData()) {
+      curr = curr->getRight();
+    } else {
+      return -1;
+    }
+  }
+  return -1;
+}
+
 int BST::howManyChildren(NodeT *r) {
   int cont = 0;
   if (r->getLeft() != NULL) {
@@ -296,4 +386,15 @@ void BST::nivelXnivel() {
     cout << qiu.front()->getData() << " ";
     qiu.pop();
   }
+}
+
+bool BST::search(int data, NodeT *r) {
+  NodeT *curr = r;
+  while (curr != NULL) {
+    if (curr->getData() == data) {
+      return true;
+    }
+    curr = curr->getData() > data ? curr->getLeft() : curr->getRight();
+  }
+  return false;
 }
