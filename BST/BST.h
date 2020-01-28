@@ -45,6 +45,7 @@ class BST {
     void nivelXnivel();
     bool search(int data, NodeT *r);
     bool isIdentical(NodeT *root1, NodeT *root2) const;
+    int getWidth(NodeT *root, int level);
 };
 
 BST::BST() {
@@ -215,28 +216,14 @@ int BST::whatLevelamI(int data) {
 }
 
 int BST::maxWidth() {
-  NodeT *temp;
-  queue<NodeT*> qiu;
-  int max = 0, currWidth = 0, nextWidth = 0;
-  qiu.push(root);
-  currWidth++;
-  temp = root;
-  while (!qiu.empty()) {
-    currWidth++;
-    if (qiu.front() == temp) {
-      max = max > currWidth ? max : currWidth;
-      currWidth = 0;
-      temp = qiu.front()->getRight();
+  int maxWidth = 0, width;
+  for (int i = 1; i < height(); i++) {
+    width = getWidth(root, i);
+    if (width > maxWidth) {
+      maxWidth = width;
     }
-    if (qiu.front()->getLeft() != NULL) {
-      qiu.push(qiu.front()->getLeft());
-    }
-    if (qiu.front()->getRight() != NULL) {
-      qiu.push(qiu.front()->getRight());
-    }
-    qiu.pop();
   }
-  return max;
+  return maxWidth;
 }
 
 int BST::nearstRelative(int n1, int n2) {
@@ -461,4 +448,14 @@ bool BST::isIdentical(NodeT *root1, NodeT *root2) const {
       return false;
     }
   }
+}
+
+int BST::getWidth(NodeT *root, int level) {
+  if (!root) return 0;
+  if (level == 1) return 1;
+  if (level > 1) {
+    return getWidth(root->getLeft(), level - 1) +
+      getWidth(root->getRight(), level - 1);
+  }
+  return -1;
 }
