@@ -77,7 +77,6 @@ int main() {
   arbol.print(5);
   cout << endl;
 
-  /*
   cout << "maxWidth: " << arbol.maxWidth() << endl;
   arbol.remove(2);
   arbol.remove(3);
@@ -85,8 +84,8 @@ int main() {
   cout << "maxWidth: " << arbol.maxWidth() << endl;
   arbol.remove(8);
   cout << "maxWidth: " << arbol.maxWidth() << endl;
-  */
 
+  /*
   cout << "nearstRelative(5, 20): " << arbol.nearstRelative(5, 20) << endl;
   cout << "nearstRelative(8, 2): " << arbol.nearstRelative(8, 2) << endl;
   cout << "nearstRelative(18, 19): " << arbol.nearstRelative(18, 19) << endl;
@@ -110,7 +109,6 @@ int main() {
   arbol2.print(3);
   cout << endl;
 
-  /*
   cout << "arbol1 == arbol2: " << (arbol == arbol2 ? "true" : "false") << endl;
   arbol.add(4);
   cout << "added 4 into arbol1." << endl;
@@ -121,7 +119,6 @@ int main() {
   arbol.remove(17);
   cout << "removed 17 from arbol1." << endl;
   cout << "arbol1 == arbol2: " << (arbol == arbol2 ? "true" : "false") << endl;
-  */
 
   queue<int> qiu;
 
@@ -132,6 +129,7 @@ int main() {
     qiu.pop();
   }
   cout << endl;
+  */
 
   return 0;
 }
