@@ -1,0 +1,3 @@
+[submodule "boggle"]
+	path = boggle
+	url = https://github.com/santiagodg/boggle.git
